@@ -15,6 +15,8 @@ class User {
     required this.email,
     required this.uid,
     required this.time,
+    this.role,//role
+    this.git, //git
   });
 
   bool online;
@@ -22,6 +24,8 @@ class User {
   String email;
   String uid;
   String time;
+  String? git;//git
+  String? role;//role
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         online: json["online"],
@@ -29,6 +33,8 @@ class User {
         email: json["email"],
         uid: json["uid"],
         time: json["time"],
+        git: json["git"],//git
+        role: json["role"],//role
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,5 +43,7 @@ class User {
         "email": email,
         "uid": uid,
         "time": time,
+        "git": git,//git
+        "role": role,//role
       };
 }

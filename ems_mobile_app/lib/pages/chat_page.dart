@@ -131,7 +131,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
       child: Scaffold(
         appBar: AppBar(
           elevation: 1,
-          backgroundColor: const Color.fromARGB(255, 0, 157, 200),
+          // backgroundColor: const Color.fromARGB(255, 0, 157, 200),
           title: Row(children: [
             CircleAvatar(
               backgroundColor: const Color.fromARGB(255, 145, 231, 255),

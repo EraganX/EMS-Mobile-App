@@ -190,12 +190,6 @@ class RoomItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //late User? user;
-    //user = null;
-    //print(room.groupname);
-    //user.name = room.['groupname'];
-    //user.uid = room.uid;
-
     return ListTile(
       title: Text(
         room.groupname,
@@ -215,7 +209,6 @@ class RoomItem extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 145, 231, 255),
         child: Icon(
           Icons.group_rounded,
-          //color: (user.online) ? Colors.green : Colors.red,
         ),
       ),
       onTap: () {

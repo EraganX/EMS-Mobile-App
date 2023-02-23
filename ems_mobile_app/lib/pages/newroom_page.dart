@@ -26,7 +26,7 @@ class NewroomPage extends StatelessWidget {
       //backgroundColor: Colors.grey[300],
       appBar: AppBar(
         elevation: 1,
-        backgroundColor: const Color.fromARGB(255, 0, 157, 200),
+        // backgroundColor: const Color.fromARGB(255, 255, 166, 0),
         title: Text(
           "Flatter Chat - ${user.name}",
           style: const TextStyle(fontWeight: FontWeight.bold),
@@ -46,18 +46,11 @@ class NewroomPage extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, LoginScreen.routeName);
               },
             ),
-
-            /*
-            FaIcon(FontAwesomeIcons.plug,
-                color: (socketService.serverStatus == ServerStatus.Online)
-                    ? Colors.green
-                    : Colors.grey),
-                    */
           ),
         ],
       ),
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(
@@ -79,13 +72,10 @@ class NewroomPage extends StatelessWidget {
 
 class _Form extends StatelessWidget {
   final textController = TextEditingController();
-  //final passController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     final roomService = Provider.of<RoomService>(context);
     final authService = Provider.of<AuthService>(context);
-    //final socketService = Provider.of<SocketService>(context);
     return Center(
       child: Container(
         constraints: const BoxConstraints(minWidth: 180, maxWidth: 600),
@@ -108,9 +98,8 @@ class _Form extends StatelessWidget {
             press: () async {
               FocusScope.of(context).unfocus();
               final loginOK = await roomService.createRoom(textController.text);
-//
               if (loginOK) {
-                //navegar a la pantalla de usuaris
+                //navigate to the user screen
                 Navigator.pushReplacementNamed(context, UsersPage.routeName);
               } else {
                 showAlert(

@@ -1,5 +1,12 @@
 const { Schema, model } = require("mongoose");
 
+const Address = Schema({
+    province:{type:String},
+    district:{type:String},
+    // city:{type:String},
+    // postal:{type:String},
+});
+
 const UserSchema = Schema({
     name: {
         type: String,
@@ -9,6 +16,15 @@ const UserSchema = Schema({
         type: String,
         required: true,
         unique: true
+    },
+    git: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    role:{
+        type:String,
+        required : true,
     },
     password: {
         type: String,
@@ -22,6 +38,9 @@ const UserSchema = Schema({
         type: String,
         default: new Date(),
     },
+    address:{
+        type:[Address],
+    }
 });
 
 // extract only what we need to show

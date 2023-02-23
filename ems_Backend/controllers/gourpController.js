@@ -4,9 +4,6 @@ const Groupchat = require('../models/groupchat');
 const createGroup = async (req, res = response) => {
 
     const {groupname} = req.body 
-
-    //console.log(req.body)
-
     try{
 
         const groupChat = new Groupchat(req.body);

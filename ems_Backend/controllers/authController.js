@@ -4,11 +4,9 @@ const User = require('../models/user');
 const { generateToken } = require("../helpers/jwt");
 
 const createUser = async (req, res = response) => {
-    const{ email,password } = req.body 
+    const{ email,password,git } = req.body 
     // const email = req.body.email // is same
-
     try{
-
         const user = new User(req.body);
 
         // validate if email already exists
@@ -17,6 +15,14 @@ const createUser = async (req, res = response) => {
             return res.status(400).json({
                 ok: false,
                 msg: 'Email already exists'
+            });
+        }
+
+        const gitExist = await User.findOne({git:git});
+        if(gitExist){
+            return res.status(400).json({
+                ok: false,
+                msg: 'git already exists'
             });
         }
 
@@ -34,7 +40,6 @@ const createUser = async (req, res = response) => {
             user,
             token,
             msg:'User created success'
-            //message:req.body
         });
 
     }catch(error){

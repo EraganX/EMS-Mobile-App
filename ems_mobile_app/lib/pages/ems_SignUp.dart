@@ -1,4 +1,4 @@
-import 'package:ems_mobile_app/pages/users_page.dart';
+import 'package:ems_mobile_app/pages/ems_Login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mongo_dart/mongo_dart.dart' as MG;
@@ -8,6 +8,7 @@ import '../colours/Colours.dart';
 import '../helpers/show_alert.dart';
 import '../services/auth_service.dart';
 import '../services/socket.dart';
+import 'ems_Dashboard.dart';
 
 class SignUp extends StatefulWidget {
   static const routeName = 'SignUp';
@@ -23,6 +24,16 @@ class _SignUpState extends State<SignUp> {
   final userController = TextEditingController();
   final emailController = TextEditingController();
   final passController = TextEditingController();
+  final gitController = TextEditingController();
+
+  // final provinceController = TextEditingController();
+  // final districtController = TextEditingController();
+  // final cityController = TextEditingController();
+  // final laneController = TextEditingController();
+  // final postalController = TextEditingController();
+
+  List<String> role = ['Developer', 'Manager', 'Admin'];
+  late String selectRole = role[0];
 
   @override
   Widget build(BuildContext context) {
@@ -88,9 +99,27 @@ class _SignUpState extends State<SignUp> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        fieldCreator(userController, "UserName", false),
+                        fieldCreator(userController, "Name", false),
                         fieldCreator(emailController, "Email", false),
                         fieldCreator(passController, "Password", true),
+                        fieldCreator(gitController, "GIT account", false),
+                        DropdownButton(
+                            value: selectRole,
+                            items: role.map((option) {
+                              return DropdownMenuItem(
+                                value: option,
+                                child: Text(option),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                selectRole = value!;
+                              });
+                            }),
+                        // fieldCreator(provinceController, "Province", false),
+                        // fieldCreator(districtController, "District", false),
+                        // fieldCreator(cityController, "City", false),
+                        // fieldCreator(postalController, "postal", false),
 
                         const Divider(
                           color: Colors.transparent,
@@ -98,19 +127,37 @@ class _SignUpState extends State<SignUp> {
                         ),
 
                         GestureDetector(
-                          onTap: authService.logeando
+                          onTap: authService.loggin
                               ? null
                               : () async {
-                            final msg = await authService.register(
-                                userController.text.trim(),
+                            final msg =await authService.register(
+                                userController.text,
                                 emailController.text.trim(),
-                                passController.text);
-                            if (msg == true) {
-                              socketService.connect("noroom");
-                              Navigator.pushReplacementNamed(context, UsersPage.routeName);
-                            } else
-                              showAlert(context, 'Register', msg);
-                          },
+                                passController.text,
+                                gitController.text.trim(),
+                                selectRole.toString(),
+                                // provinceController.text,
+                                // districtController.text,
+                                // cityController.text,
+                                // postalController.text
+                            );
+                                  // final msg = await authService.register(
+                                  //     userController.text.trim(),
+                                  //     emailController.text.trim(),
+                                  //     gitController.text.trim(),
+                                  //     passController.text,
+                                  //     selectRole.toString(),
+                                  //   provinceController.text,
+                                  //   districtController.text,
+                                  //   cityController.text,
+                                  // );
+                                  if (msg == true) {
+                                    socketService.connect("noroom");
+                                    Navigator.pushReplacementNamed(
+                                        context, DashboardScreen.routeName);
+                                  } else
+                                    showAlert(context, 'Register', msg);
+                                },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 100, vertical: 10),
@@ -141,7 +188,7 @@ class _SignUpState extends State<SignUp> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context).pushNamed('Login');
+                                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
                               },
                               child: const Text("Login Now ",
                                   style: TextStyle(color: Colors.lightBlue)),
@@ -163,7 +210,6 @@ class _SignUpState extends State<SignUp> {
                       "Register",
                       style: GoogleFonts.righteous(
                           fontSize: 45, color: Colors.white),
-                      // style: GoogleFonts.righteous(fontSize: 50,color: Color(0xFFFF7D35)),
                       textAlign: TextAlign.left,
                     ),
                     Text(
@@ -191,7 +237,9 @@ class _SignUpState extends State<SignUp> {
         obscureText: obscureText,
         keyboardType: (fieldName == "Date of Birth")
             ? TextInputType.datetime
-            : (fieldName == "Telephone Number")?TextInputType.phone:TextInputType.text,
+            : (fieldName == "Telephone Number")
+                ? TextInputType.phone
+                : TextInputType.text,
         controller: controller,
         decoration: InputDecoration(
             label: Text(fieldName),

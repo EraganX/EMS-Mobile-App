@@ -1,3 +1,4 @@
+import 'package:ems_mobile_app/pages/ems_Profile.dart';
 import 'package:ems_mobile_app/pages/users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -15,7 +16,9 @@ class DashboardTiles extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           switch(name){
-            case "Chat":Navigator.pushReplacementNamed(context, UsersPage.routeName);
+            case "Chat":Navigator.pushNamed(context, UsersPage.routeName);
+            break;
+            case "Profile":Navigator.pushNamed(context, Profile.routeName);
             break;
           }
         },

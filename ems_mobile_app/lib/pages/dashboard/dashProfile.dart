@@ -17,9 +17,10 @@ class _DashboardProfileState extends State<DashboardProfile> {
 
   @override
   Widget build(BuildContext context) {
+
     final user = Provider.of<AuthService>(context).user;
-    // final String name = "charith" ;
     final String name = user.name;
+    final String? designation = user.role;
     return Center(
       child: Container(
         width: MediaQuery.of(context).size.width - 20,
@@ -74,7 +75,8 @@ class _DashboardProfileState extends State<DashboardProfile> {
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 20),
                     ),
-                    subtitle: const Text("UI/UX Designer"),
+                    subtitle:  Text("$designation"),
+                    // subtitle: const Text("UI/UX Designer"),
                     trailing: const Text("UD - 00001"),
                   ),
                 )

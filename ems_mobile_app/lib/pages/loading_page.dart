@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../services/auth_service.dart';
 import '../../services/socket.dart';
 
+import 'ems_Dashboard.dart';
 import 'ems_Login.dart';
 
 
@@ -67,7 +68,7 @@ class _LoadingPageState extends State<LoadingPage> {
       Navigator.pushReplacement(
           context,
           PageRouteBuilder(
-              pageBuilder: (_, __, ___) => UsersPage(),
+              pageBuilder: (_, __, ___) => DashboardScreen(),
               transitionDuration: Duration(milliseconds: 0)));
     } else {
       Navigator.pushReplacement(

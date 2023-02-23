@@ -21,6 +21,7 @@ void main() async {
 Future initialization(BuildContext? context) async {
   //  Load Resources
   await Future.delayed(Duration(seconds: 3));
+
 }
 
 class MyApp extends StatelessWidget {

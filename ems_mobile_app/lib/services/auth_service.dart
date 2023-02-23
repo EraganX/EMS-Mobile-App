@@ -12,18 +12,18 @@ import '../models/user_model.dart';
 
 class AuthService with ChangeNotifier {
   late User user;
-  bool _logeando = false;
+  bool _loggin = false;
 
   final _storage = const FlutterSecureStorage();
 
-  bool get logeando => _logeando;
-  set logeando(value) {
-    _logeando = value;
+  bool get loggin => _loggin;
+  set loggin(value) {
+    _loggin = value;
     notifyListeners();
   }
 
   Future login(String email, String password) async {
-    logeando = true;
+    loggin = true;
 
     final request = {'email': email, 'password': password};
 
@@ -31,9 +31,7 @@ class AuthService with ChangeNotifier {
         body: jsonEncode(request),
         headers: {'Content-Type': 'application/json'});
 
-    //print(response.body);
-
-    logeando = false;
+    loggin = false;
 
     if (response.statusCode == 200) {
       final data = loginResponseFromJson(response.body);
@@ -45,16 +43,15 @@ class AuthService with ChangeNotifier {
     }
   }
 
-  Future register(String name, String email, String password) async {
-    logeando = true;
-
-    final request = {'name': name, 'email': email, 'password': password};
+  Future register(String name, String email, String password, String git, String role) async {
+    loggin = true;
+    final request = {'name': name, 'email': email, 'password': password, 'git':git, "role":role,};
 
     final response = await http.post(
         Uri.parse('${Environment.apiUrl}/login/new'),
         body: jsonEncode(request),
         headers: {'Content-Type': 'application/json'});
-    logeando = false;
+    loggin = false;
 
     if (response.statusCode == 200) {
       final data = loginResponseFromJson(response.body);

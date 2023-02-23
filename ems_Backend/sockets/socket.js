@@ -26,10 +26,10 @@ io.on('connection', client => {
     // example: 5fc7e4c54f9c5166f69d816d
     if (roomName == "noroom") {
         client.join(uid);
-        console.log(`Client ha entrat a room = ${uid}`);
+        console.log(`Client Enter a room = ${uid}`);
     } else {
         client.join(roomName);
-        console.log(`Clinet ha entrat a room = ${uid}`);
+        console.log(`Clinet has entered a room = ${uid}`);
     }
 
     // Listen a Message

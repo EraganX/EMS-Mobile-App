@@ -151,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       //sign button
                       GestureDetector(
-                        onTap: authService.logeando
+                        onTap: authService.loggin
                             ? null
                             : () async {
                                 FocusScope.of(context).unfocus();
